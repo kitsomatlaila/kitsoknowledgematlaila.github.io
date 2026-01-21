@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kitso Knowledge Matlaila | Portfolio</title>
+<link rel="icon" type="image/png" href="favicon2.png">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet" />
+
+<style>
+:root {
+  --purple-dark: #10002b;
+  --purple-main: #7b2cbf;
+  --purple-light: #c77dff;
+  --neon: #e0aaff;
+  --glass: rgba(255,255,255,0.08);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+body { background: radial-gradient(circle at top, #3c096c, var(--purple-dark)); color: #fff; overflow-x: hidden; position: relative; }
+
+.star { position: absolute; width: 2px; height: 2px; background: white; border-radius: 50%; animation: twinkle 5s linear infinite; }
+@keyframes twinkle { 0%,100% {opacity:0.3} 50% {opacity:1} }
+
+section { padding: 80px 8%; position: relative; }
+h1,h2,h3,h4 { font-weight: 800; }
+
+.hero { min-height: 100vh; display: grid; grid-template-columns: 1.2fr 1fr; align-items: center; gap: 50px; position: relative; opacity: 0; transition: opacity 1s ease; }
+.hero.show { opacity: 1; }
+.hero h1 { font-size: clamp(2.5rem,8vw,4.5rem); background: linear-gradient(90deg, #fff, var(--neon)); -webkit-background-clip: text; color: transparent; text-shadow: 0 0 10px var(--neon);} 
+.hero p { font-size: 1.3rem; margin-top: 15px; opacity: 0.9; }
+.hero img { width: 100%; height: 80%; border-radius: 30px; box-shadow: 0 0 100px rgba(199,125,255,0.5); transform-style: preserve-3d; }
+
+.glass {
+  background: var(--glass);
+  backdrop-filter: blur(15px);
+  border-radius: 25px;
+  padding: 20px;
+  box-shadow: 0 0 60px rgba(199,125,255,0.4);
+  transition: transform 0.6s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  perspective: 1000px;
+}
+
+.glass.hovered { box-shadow: 0 0 80px rgba(199,125,255,0.8); }
+.glass-inner { transform-style: preserve-3d; transition: transform 0.3s ease; }
+
+.reveal { opacity: 0; transform: translateY(80px); transition: 1s ease; }
+.reveal.active { opacity: 1; transform: translateY(0); }
+
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin-top: 50px; }
+.grid img { width: 100%; border-radius: 15px; box-shadow: 0 0 30px rgba(199,125,255,0.5); }
+
+.skill { margin-bottom: 15px; }
+.bar { height: 10px; background: #240046; border-radius: 20px; overflow: hidden; }
+.bar span { display: block; height: 100%; background: linear-gradient(90deg, var(--purple-main), var(--neon)); width: 0; animation: grow 2s forwards; }
+@keyframes grow { to { width: var(--w); } }
+
+.btn { display: inline-block; padding: 18px 40px; border-radius: 50px; background: linear-gradient(90deg, var(--purple-main), var(--neon)); color: #fff; text-decoration: none; font-weight: 600; box-shadow: 0 0 40px rgba(199,125,255,0.6); transition: transform 0.3s ease; }
+.btn:hover { transform: scale(1.1); }
+
+.cursor { width: 18px; height: 18px; border: 2px solid var(--neon); border-radius: 50%; position: fixed; pointer-events: none; z-index: 999; transform: translate(-50%, -50%); }
+
+#ai-intro { font-family: monospace; font-size: 1.2rem; color: var(--neon); text-shadow: 0 0 10px var(--neon); white-space: pre; position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); text-align:center; }
+
+#scroll-heart { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 50px; height: 50px; clip-path: polygon(50% 0%, 61% 12%, 75% 25%, 100% 50%, 75% 75%, 61% 88%, 50% 100%, 39% 88%, 25% 75%, 0% 50%, 25% 25%, 39% 12%); background: linear-gradient(90deg, var(--purple-main), var(--neon)); }
+
+@media (max-width: 1024px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+  .hero { grid-template-columns: 1fr; text-align:center; }
+}
+
+@media (max-width: 600px) {
+  .grid { grid-template-columns: 1fr; gap: 20px; }
+  .hero img { max-width: 85%; margin: 0 auto 1.5rem; }
+  .glass { padding: 15px; }
+  .btn { padding: 14px 28px; font-size: 0.9rem; }
+}
+
+/* Touch-friendly fallback for 3D tilt */
+@media (hover: none) {
+  .glass-inner { transform: none !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor"></div>
+<div id="ai-intro"></div>
+
+<section class="hero reveal" id="hero">
+  <div>
+    <h1>Kitso Knowledge Matlaila</h1>
+    <p>Cybersecurity • AI • Blockchain • Automation</p>
+  </div>
+  <img src="kitso.jpg" alt="Kitso">
+</section>
+
+<section class="reveal">
+  <div class="glass">
+    <h2>About Me</h2>
+    <p>I am a second-year Bachelor of Information Technology student with a strong interest in cybersecurity, automation, artificial intelligence, and blockchain technology. I operate at the intersection of technology and security, focusing on building intelligent and secure systems that protect, optimize, and innovate.
+    <br><br>
+    Driven by a passion for automating security processes and leveraging AI-powered solutions, I aim to reduce risk, improve efficiency, and develop systems that proactively anticipate and respond to threats. I am also deeply interested in blockchain technology as a means to enhance data integrity, transparency, and trust within secure and automated systems.
+    <br><br>
+    Beyond technical skills, I bring creativity, discipline, and curiosity to every project, continuously expanding my knowledge and pushing the boundaries of what technology can achieve. My goal is to design and deliver secure, automated, and intelligent solutions that create meaningful, real-world impact in the fields of IT, cybersecurity, and emerging technologies.</p>
+  </div>
+</section>
+
+<section class="reveal">
+  <h2>Certifications</h2>
+  <div class="grid" id="certifications"></div>
+</section>
+
+<section class="reveal">
+  <h2>Projects</h2>
+  <div class="grid" id="projects-grid"></div>
+</section>
+
+<section class="reveal">
+  <h2>Skills</h2>
+  <div class="grid">
+    <div class="glass">
+      <h3>Programming</h3>
+      <div class="skill">HTML<div class="bar"><span style="--w:98%"></span></div></div>
+      <div class="skill">CSS<div class="bar"><span style="--w:90%"></span></div></div>
+      <div class="skill">JavaScript<div class="bar"><span style="--w:85%"></span></div></div>
+      <div class="skill">C#<div class="bar"><span style="--w:88%"></span></div></div>
+      <div class="skill">Python<div class="bar"><span style="--w:85%"></span></div></div>
+       <div class="skill">SQL<div class="bar"><span style="--w:85%"></span></div></div>
+    </div>
+    <div class="glass">
+      <h3>AI</h3>
+      <div class="skill">Machine Learning<div class="bar"><span style="--w:75%"></span></div></div>
+      <div class="skill">Deep Learning<div class="bar"><span style="--w:80%"></span></div></div>
+      <div class="skill">Prompt Engineering<div class="bar"><span style="--w:89%"></span></div></div>
+    </div>
+    <div class="glass">
+      <h3>Cybersecurity</h3>
+      <div class="skill">Security Fundamentals<div class="bar"><span style="--w:70%"></span></div></div>
+      <div class="skill">Incident Response<div class="bar"><span style="--w:80%"></span></div></div>
+      <div class="skill">Network Security<div class="bar"><span style="--w:90%"></span></div></div>
+    </div>
+    <div class="glass">
+      <h3>Soft Skills</h3>
+      <div class="skill">Leadership<div class="bar"><span style="--w:95%"></span></div></div>
+      <div class="skill">Problem-Solving<div class="bar"><span style="--w:85%"></span></div></div>
+      <div class="skill">Time Management<div class="bar"><span style="--w:90%"></span></div></div>
+      <div class="skill">Research skills<div class="bar"><span style="--w:86%"></span></div></div>
+      <div class="skill">Teamwork and Collaboration<div class="bar"><span style="--w:89%"></span></div></div>
+       <div class="skill">Work ethic and Responsibility<div class="bar"><span style="--w:90%"></span></div></div>
+       <div class="skill">Project Management<div class="bar"><span style="--w:88%"></span></div></div>
+       <div class="skill">Attention to detail<div class="bar"><span style="--w:90%"></span></div></div>
+       <div class="skill">Conflict Resolution<div class="bar"><span style="--w:83%"></span></div></div>
+       
+    </div>
+  </div>
+</section>
+
+<section class="reveal">
+  <h2>Curriculum Vitae</h2>
+  <a href="Kitso CV.pdf" class="btn" target="_blank">Download CV</a>
+</section>
+
+<section class="reveal">
+  <h2>Connect With Me</h2>
+  <a class="btn" href="https://github.com/kitsomatlaila" target="_blank">GitHub</a>
+  <a class="btn" href="https://www.linkedin.com/in/kitso-matlaila-b2a377283/" target="_blank">LinkedIn</a>
+</section>
+
+<footer>© 2026 Kitso Knowledge Matlaila — Small girl BIG GOD.</footer>
+
+<div id="scroll-heart"></div>
+
+<script>
+// Cursor
+const cursor = document.querySelector('.cursor');
+document.addEventListener('mousemove', e => { cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px'; });
+
+// Stars background
+for(let i=0;i<100;i++){
+  const star=document.createElement('div');
+  star.className='star';
+  star.style.top=Math.random()*100+'%';
+  star.style.left=Math.random()*100+'%';
+  star.style.animationDuration=2+Math.random()*3+'s';
+  document.body.appendChild(star);
+}
+
+// Reveal sections on scroll
+const reveals = document.querySelectorAll('.reveal');
+window.addEventListener('scroll', () => {
+  reveals.forEach(r => {
+    const top = r.getBoundingClientRect().top;
+    if(top < window.innerHeight - 100) r.classList.add('active');
+  });
+  const scrollTop = window.scrollY;
+  const docHeight = document.body.offsetHeight - window.innerHeight;
+  const percent = scrollTop / docHeight;
+  document.getElementById('scroll-heart').style.background = `conic-gradient(var(--neon) 0% ${percent*100}%, #240046 ${percent*100}% 100%)`;
+});
+
+// AI intro typing effect
+const aiIntro = document.getElementById('ai-intro');
+const hero = document.getElementById('hero');
+const aiText = `Initializing Kitso Knowledge Matlaila's Portfolio...\nLoading ...\nSystem Ready.\n`;
+let index = 0;
+function typeAI() {
+  if (index < aiText.length) {
+    aiIntro.textContent += aiText.charAt(index);
+    index++;
+    setTimeout(typeAI, 14);
+  } else {
+    aiIntro.style.transition = 'opacity 0.8s ease';
+    aiIntro.style.opacity = 0;
+    setTimeout(() => {
+      aiIntro.remove();
+      hero.classList.add('show');
+      renderCertifications();
+      renderProjects();
+    }, 800);
+  }
+}
+typeAI();
+
+// Certifications
+const certifications = [
+ {title:'Oracle Cerified AI Foundations Associate', desc:'This certification demonstrates the ability to understand how AI systems are designed, trained, and applied to solve business and technology challenges, while emphasizing responsible and ethical AI practices.', img:'ai-oracle.jpg'}, 
+ {title:'Securing Generative AI on AWS', desc:'Gained practical knowledge in securing and deploying generative AI models on AWS, including understanding best practices for data protection, access control, compliance, and risk mitigation in AI applications.', img:'cert2.jpg'},
+ {title:'GenAI for Software Engineering-WeThinkCode', desc:'Learned how to leverage generative AI tools and techniques to enhance software development, including code generation, debugging, and intelligent automation.', img:'cert3.jpg'},
+ {title:'Malware Analysis on AWS-Setting up a secure environment', desc:'Gained hands-on experience in analyzing malware in a secure AWS environment, learning best practices for isolation, containment, and threat mitigation.', img:'cert4.jpg'},
+{title:'PostgreSQL Security', desc:'Learned how to secure PostgreSQL databases, including user access control, encryption, authentication, and best practices for protecting data integrity and confidentiality.', img:'cert5.jpg'},
+     {title:'The Cybersecurity Landscape (eLearning)', desc:'Gained foundational knowledge in cybersecurity principles, threat landscapes, and defense strategies, preparing for roles in Security Operations Centers (SOCs) and enhancing threat detection capabilities. ', img:'cert6.jpg'},
+     {title:'Automating Cloud Security Posture Management on AWS', desc:'Learned how to automate the monitoring and enforcement of security best practices in AWS, ensuring compliance, risk mitigation, and continuous cloud security posture management."', img:'cert7.jpg'},
+     {title:'PwC Cybersecurity Consulting Job Simulation', desc:'Gained practical experience simulating real-world cybersecurity consulting scenarios, including risk assessment, threat analysis, and strategic recommendations for organizational security.', img:'cert8.jpg'},
+     {title:'Mastercard Cybersecurity Job Simulation', desc:'imulated real-world cybersecurity consulting at Mastercard, developing skills in threat analysis, risk management, and delivering security-focused solutions for business environments.', img:'cert9.jpg'},
+     
+];
+
+function renderCertifications() {
+  const certGrid = document.getElementById('certifications');
+  certifications.forEach(c => {
+    const card = document.createElement('div');
+    card.className='glass';
+    card.innerHTML=`<div class='glass-inner'><img src='${c.img}' alt='${c.title}'><h4>${c.title}</h4><p>${c.desc}</p></div>`;
+    // 3D tilt
+    card.addEventListener('mousemove', e=>{
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const cx = rect.width/2;
+      const cy = rect.height/2;
+      card.querySelector('.glass-inner').style.transform = `rotateY(${(x-cx)*0.05}deg) rotateX(${-(y-cy)*0.05}deg)`;
+    });
+    card.addEventListener('mouseleave', ()=>{ card.querySelector('.glass-inner').style.transform='rotateY(0) rotateX(0)'; });
+    certGrid.appendChild(card);
+  });
+}
+
+// Projects
+const projects = [
+  {title:"SecureChain Access Monitor", desc:"Blockchain‑based access control system using Ethereum smart contracts.", link:"https://github.com/kitsomatlaila/SecureChain-Access-Monitor"},
+  {title:"AI Threat Detection Tool", desc:"Machine learning system that detects suspicious network activity.", link:"https://github.com/kitsomatlaila/AI-Threat-Detection-Tool"},
+ {title:"AI Log Analyser", desc:"Analyzes code and gives improvement suggestions", link:"https://github.com/kitsomatlaila/AI-Log-Analyzer"},
+ {title:"Cyber Awareness Platform", desc:"Educational platform teaching cybersecurity best practices.", link:"https://github.com/kitsomatlaila/CyberSecurity-Awareness"},
+ {title:"AI Phishing Email Detector", desc:"Classifies emails as phishing or legitimate.", link:"https://github.com/kitsomatlaila/AI-Phishing-Email-Detector"},
+ {title:"KFX Trading Bot", desc:"Automated trading bot using smart money concepts and risk management.", link:"https://github.com/kitsomatlaila/KFX-Trading-robot"},
+ 
+];
+
+function renderProjects() {
+  const projectGrid = document.getElementById('projects-grid');
+  projects.forEach(p => {
+    const card = document.createElement('div');
+    card.className = 'glass';
+    card.innerHTML = `<div class='glass-inner'><h4>${p.title}</h4><p>${p.desc}</p><a href="${p.link}" target="_blank" class="btn">GitHub Repo →</a></div>`;
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const cx = rect.width/2;
+      const cy = rect.height/2;
+      card.querySelector('.glass-inner').style.transform = `rotateY(${(x-cx)*0.05}deg) rotateX(${-(y-cy)*0.05}deg)`;
+    });
+    card.addEventListener('mouseleave', () => { card.querySelector('.glass-inner').style.transform='rotateY(0) rotateX(0)'; });
+    projectGrid.appendChild(card);
+  });
+}
+</script>
+</body>
+</html>
